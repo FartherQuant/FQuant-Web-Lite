@@ -3,7 +3,7 @@
 Farther Quant（FQuant）是A股市场量化统计分析Lite版本。
 您可以通过访问 https://quant.1dian.site 来查看最新版本的展示。
 
-前端使用 vue + quasur 开发。
+前端使用 vue + quasur + echart 开发。
 后端使用 python 开发，后期会陆续开源。
 
 ## 项目说明
