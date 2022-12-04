@@ -1,34 +1,44 @@
 <template>
-  <a-input-search
-    v-model:value="value"
-    placeholder="input search text"
-    text='2021-11-22'
-    enter-button
-    @search="onSearch"
-  />
+    
 
-  <div class="flex flex-col w-full md:flex-row">
-    <div class="flex basis-1/6 p-2">
-      <div class="flex">
-        <a-menu
-          v-model:openKeys="openKeys"
-          v-model:selectedKeys="selectedKeys"
-          style="width: 256px"
-          mode="vertical"
-          @click="handleClick"
-        >
-          <a-menu-item key="000002">000002
-          </a-menu-item>
-          <a-menu-item key="000001">000001
-          </a-menu-item>
-        </a-menu>
+    <div class="bg-grey-1" v-if="StockOption.str60_base">
+      <div class="row">
+        <div class="text-h6 q-pa-sm">策略组合</div>
       </div>
-    </div>
-    <div class="flex basis-5/6 p-2">
-      <v-chart class="chart" :option="StockOption" autoresize ref="StockChart"/>
-    </div>
-  </div>
+      <div class="row">
+          <v-chart class="chart" :option="v1lineOption" autoresize/>
+      </div>
+      <q-separator inset spaced />
 
+      <div class="row">
+        <div class="text-h6 q-pa-sm">策略 I</div>
+      </div>
+      <div class="row">
+        <div class="q-pa-sm">{{StockOption.strong.plist}}</div>
+      </div>
+      
+      <q-separator inset spaced />
+
+      <div class="row">
+        <div class="text-h6 q-pa-sm">策略 II</div>
+      </div>
+      <div class="row">
+        <div class="q-pa-sm">{{StockOption.breakthrough.plist}}</div>
+      </div>
+
+      <q-separator inset spaced />
+
+      <div class="row">
+        <div class="text-h6 q-pa-sm">策略 III</div>
+      </div>
+      <div class="row">
+        <div class="q-pa-sm">{{StockOption.strdays_all_1.plist}}</div>
+      </div>
+
+      <q-separator inset spaced />
+      
+    </div>
+  
 </template>
 
 <script lang=“ts”>
@@ -36,50 +46,39 @@ import http from '../utils/http'
 
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
-import {
-  LineChart,
-  BarChart,
-  CandlestickChart,
-  } from 'echarts/charts'
+import { LineChart, SunburstChart, } from 'echarts/charts'
 import {
   GridComponent,
   TooltipComponent,
+  MarkAreaComponent,
   LegendComponent,
   TitleComponent,
   VisualMapComponent,
-  DatasetComponent,
-  MarkLineComponent,
-  BrushComponent,
-  ToolboxComponent
+  DatasetComponent
 } from 'echarts/components'
 import VChart from 'vue-echarts'
 import { ref, defineComponent } from 'vue'
 
-
 use([
   CanvasRenderer,
+  SunburstChart,
   LineChart,
-  BarChart,
-  CandlestickChart,
   GridComponent,
+  MarkAreaComponent,
   TooltipComponent,
   LegendComponent,
   TitleComponent,
   VisualMapComponent,
-  DatasetComponent,
-  MarkLineComponent,
-  BrushComponent,
-  ToolboxComponent
+  DatasetComponent
 ])
 
 export default defineComponent({
   name: 'StockView',
-  components: {
-    VChart
-  },
+  components: { VChart },
 
+  
   mounted: function () {
-    //this.getServerMarketData()
+    this.getServerMarketData()
   },
   
 
@@ -87,23 +86,23 @@ export default defineComponent({
     getServerMarketData: async function () {
       let params = {
       }
-      const res = await http.get('http://s.anno189.com/days/000001/2021-12-31', params)
-      //console.log(res.data)
+      const res1 = await http.get('https://stock.anno189.com/h5/data/showpools.json', params)
+      this.StockOption = res1.data
+      console.log(res1.data)
+      
 
-      this.StockOption = res.data
+      const res2 = await http.get('https://stock.anno189.com/h5/data/fundowner_show.json', params)
+      this.v1lineOption = res2.data
+
     }
   },
 
+
   setup () {
     const StockOption = ref({});
-    const value = ref('');
-
-    const onSearch = searchValue => {
-      console.log('use value', searchValue);
-      console.log('or use this.value', value.value);
-    };
-
-    return { StockOption, onSearch, value, };
+    const v1lineOption = ref({});
+    
+    return { StockOption, v1lineOption};
 
   },
   
@@ -112,8 +111,7 @@ export default defineComponent({
 
 </script>
 
-<style scoped>
-.chart {
-  height: 520px;
-}
+<style lang="sass">
+.chart 
+  height: 300px
 </style>

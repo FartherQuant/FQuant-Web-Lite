@@ -13,7 +13,7 @@
 
         <q-toolbar-title>
           FQuant Web Application
-          <q-badge align="top">v1.5.0 Lite</q-badge>
+          <q-badge align="top">v1.5.1.1204 Lite</q-badge>
         </q-toolbar-title>
         <div class="text-bold q-mr-lg" flat >投资有风险，入市需谨慎!  </div>
         <div class="text-bold" flat > {{ time }}</div>

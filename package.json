@@ -2,7 +2,7 @@
   "name": "fquant-quasar",
   "version": "0.0.1",
   "description": "Quant Market A",
-  "productName": "FQuant Web",
+  "productName": "FQuant Web Lite",
   "author": "Anno189",
   "private": true,
   "scripts": {
