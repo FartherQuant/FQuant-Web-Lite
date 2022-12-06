@@ -106,22 +106,22 @@ export default defineComponent({
       const res2 = await http.get('https://stock.anno189.com/h5/data/str60p20_echarts_pie.json', params)
       this.v1pieOption=res2.data
 
-      const res3 = await http.get('https://stock.anno189.com/h5/data/str60p20_empty_echarts_lines.json', params)
+      const res3 = await http.get('https://stock.anno189.com/h5/data/str60p20_advance_echarts_lines.json', params)
       this.v2lineOption=res3.data
 
-      const res4 = await http.get('https://stock.anno189.com/h5/data/str60p20_empty_echarts_pie.json', params)
+      const res4 = await http.get('https://stock.anno189.com/h5/data/str60p20_advance_echarts_pie.json', params)
       this.v2pieOption=res4.data
 
-      const res5 = await http.get('https://stock.anno189.com/h5/data/str60p20_super_echarts_lines.json', params)
+      const res5 = await http.get('https://stock.anno189.com/h5/data/str60p20_super_001_echarts_lines.json', params)
       this.v3lineOption=res5.data
 
-      const res6 = await http.get('https://stock.anno189.com/h5/data/str60p20_super_echarts_pie.json', params)
+      const res6 = await http.get('https://stock.anno189.com/h5/data/str60p20_super_001_echarts_pie.json', params)
       this.v3pieOption=res6.data
 
-      const res7 = await http.get('https://stock.anno189.com/h5/data/str60p20_super_amount_echarts_lines.json', params)
+      const res7 = await http.get('https://stock.anno189.com/h5/data/str60p20_super_003_echarts_lines.json', params)
       this.v4lineOption=res7.data
 
-      const res8 = await http.get('https://stock.anno189.com/h5/data/str60p20_super_amount_echarts_pie.json', params)
+      const res8 = await http.get('https://stock.anno189.com/h5/data/str60p20_super_003_echarts_pie.json', params)
       this.v4pieOption=res8.data
 
       const res9 = await http.get('https://stock.anno189.com/h5/data/fundowner.json', params)
