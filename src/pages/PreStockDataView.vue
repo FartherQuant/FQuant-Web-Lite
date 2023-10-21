@@ -7,19 +7,19 @@
         <div class="col-12 col-md">
           <!-- <div class="text-h6 q-pa-sm">竞价概况</div> -->
           <div class="text-body2 q-pa-sm">
-            <b>隔夜一字：</b><br />
+            <b>9:15 隔夜一字：</b><br />
             - 撮合：{{ones.amount}}亿<br />
             - 封单：{{ones.fd}}亿<br />
             - TOP10：{{ones.lists}}<br />
             
             <q-separator  spaced/>
 
-            <b>竞价结束：</b><br />
+            <b>9:25 竞价结束：</b><br />
             - 撮合成交：{{twos.allamount}}亿<br />
             
             <q-separator spaced/>
 
-            <b>竞价一字：</b><br />
+            <b>9:25 竞价一字：</b><br />
             - 一字撮合：{{twos.amount}}亿<br />
             - 一字封单：{{twos.fd}}亿<br />
             - TOP10：{{twos.lists}}<br />
@@ -154,6 +154,8 @@ export default({
 
       this.ones = response.data.data.one
       this.twos = response.data.data.two
+
+      
       
     }
   },
@@ -258,6 +260,7 @@ export default({
       { name: 'M24', align: 'right', label: 'M24', field: 'M24', sortable: true },
       { name: 'M25', align: 'right', label: 'M25', field: 'M25', sortable: true },
     ]);
+
     
     return { lPreStockDataOption, rowsPreData, columnsPreData, rowsTopData, columnsTopData, ones, twos, tab: ref('detail') };
       

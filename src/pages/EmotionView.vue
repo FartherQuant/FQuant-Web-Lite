@@ -1,6 +1,12 @@
 <template>
 <q-page style="padding-top: 46px">
   <q-tab-panels v-model="tab" animated>
+    <q-tab-panel class="bg-grey-1" name="highstock">
+      <div class="q-pa-sm">
+        <v-chart class="chart" :option="highstockchart" autoresize/>
+      </div>
+    </q-tab-panel>
+
     <q-tab-panel class="bg-grey-1" name="high10">
       <div class="col-12 col-md"  v-if="emotion.emotion">
         <div class="text-h6 q-pa-sm">涨停: {{emotion.emotion.up}}；跌停: {{emotion.emotion.down}} </div>
@@ -32,12 +38,21 @@
             :columns="columnsHigh"
             :rows-per-page-options="[10000]"
             row-key="name"
-          />
+          >
+            <template v-slot:body-cell="props">
+              <q-td
+                :props="props"
+                :class="(props.row.rate >0 & props.row.rate < 5)?'bg-red-1':(props.row.rate >=5 & props.row.rate < 9)?'bg-red-2':(props.row.rate >=9)?'bg-red-3':(props.row.rate < 0 & props.row.rate > -7 )?'bg-green-1':(props.row.rate <= -7)?'bg-green-3':''"
+              >
+                {{props.value}}
+              </q-td>
+            </template>
+          </q-table>
         </div>
 
         <q-separator inset spaced />
 
-        <div class="text-h6 q-pa-sm">注册制新股</div>
+        <div class="text-h6 q-pa-sm">注册制新股(20日）</div>
         <div class="q-pa-sm">
           <q-table
             class="my-sticky-column-table"
@@ -47,7 +62,16 @@
             :columns="columnsNew"
             :rows-per-page-options="[10000]"
             row-key="name"
-          />
+          >
+          <template v-slot:body-cell="props">
+            <q-td
+              :props="props"
+              :class="(props.row.rate >0 & props.row.rate < 5)?'bg-red-1':(props.row.rate >=5 & props.row.rate < 9)?'bg-red-2':(props.row.rate >=9)?'bg-red-3':(props.row.rate < 0 & props.row.rate > -7 )?'bg-green-1':(props.row.rate <= -7)?'bg-green-3':''"
+            >
+              {{props.value}}
+            </q-td>
+          </template>
+        </q-table>
         </div>
       </div>
     </q-tab-panel>
@@ -66,7 +90,16 @@
           :columns="columns10"
           :rows-per-page-options="[10000]"
           row-key="name"
-        />
+        >
+          <template v-slot:body-cell="props">
+            <q-td
+              :props="props"
+              :class="(props.row.rate >0 & props.row.rate < 5)?'bg-red-1':(props.row.rate >=5 & props.row.rate < 9)?'bg-red-2':(props.row.rate >=9)?'bg-red-3':(props.row.rate < 0 & props.row.rate > -7 )?'bg-green-1':(props.row.rate <= -7)?'bg-green-3':''"
+            >
+              {{props.value}}
+            </q-td>
+          </template>
+        </q-table>
       </div>
     </q-tab-panel>
 
@@ -82,7 +115,16 @@
           :columns="columnsDown"
           :rows-per-page-options="[10000]"
           row-key="name"
-        />
+        >
+          <template v-slot:body-cell="props">
+            <q-td
+              :props="props"
+              :class="(props.row.rate >0 & props.row.rate < 5)?'bg-red-1':(props.row.rate >=5 & props.row.rate < 9)?'bg-red-2':(props.row.rate >=9)?'bg-red-3':(props.row.rate < 0 & props.row.rate > -7 )?'bg-green-1':(props.row.rate <= -7)?'bg-green-3':''"
+            >
+              {{props.value}}
+            </q-td>
+          </template>
+        </q-table>
       </div>
     </q-tab-panel>
   </q-tab-panels>
@@ -97,6 +139,7 @@
           align="justify"
           narrow-indicator
         >
+          <q-tab name="highstock" label="高标" />
           <q-tab name="high10" label="高标和新股" />
           <q-tab name="top10" label="今日涨停" />
           <q-tab name="low10" label="今日跌停" />
@@ -113,8 +156,41 @@
 import http from '../utils/http'
 import { ref, defineComponent } from 'vue'
 
+
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import {
+  LineChart,
+  } from 'echarts/charts'
+import {
+  GridComponent,
+  TooltipComponent,
+  LegendComponent,
+  MarkAreaComponent,
+  TitleComponent,
+  VisualMapComponent,
+  DatasetComponent
+} from 'echarts/components'
+import VChart from 'vue-echarts'
+
+use([
+  CanvasRenderer,
+  LineChart,
+  MarkAreaComponent,
+  GridComponent,
+  TooltipComponent,
+  LegendComponent,
+  TitleComponent,
+  VisualMapComponent,
+  DatasetComponent
+])
+
+
 export default defineComponent({
   name: 'EmotionView',
+  components: {
+    VChart
+  },
 
   mounted: function () {
     this.getData()
@@ -128,6 +204,12 @@ export default defineComponent({
       this.rowsHigh = res.data.data.highbar.series;
       this.rowsDown = res.data.data.limitdown.series;
       this.rowsNew = res.data.data.New.series;
+
+      const res1 = await http.get('https://stock.anno189.com/h5/data/higtstock.json', {})
+      this.highstockchart = res1.data
+
+      console.log(this.rowsDown)
+
       }
     },
 
@@ -137,6 +219,8 @@ export default defineComponent({
     const rows10 = ref({});
     const rowsHigh = ref({});
     const rowsNew = ref({});
+    const rowsDown = ref({});
+    const highstockchart = ref({});
 
     const columns10 = ref([
       { name: '名称', align: 'center', label: '名称', field: 'name', sortable: true},
@@ -144,6 +228,7 @@ export default defineComponent({
       { name: '时间', align: 'center', label: '时间', field: 'time', sortable: true },
       { name: '基因', align: 'center', label: '基因', field: 'RGene', sortable: true },
       { name: '行业', align: 'center', label: '行业', field: 'industry', sortable: true },
+      { name: '涨跌', align: 'center', label: '涨跌', field: 'rate', sortable: true},
       { name: '换手', align: 'center', label: '换手', field: 'HSL', sortable: true },
       { name: '备注', align: 'center', label: '备注', field: 'memo', sortable: true },
       { name: '封单', align: 'center', label: '封单', field: 'amount', sortable: true },
@@ -160,25 +245,28 @@ export default defineComponent({
       { name: '概念', align: 'center', label: '概念', field: 'blockname', sortable: true },
       ]);
     const columnsDown = ref([
+      { name: '代码', align: 'center', label: '代码', field: 'code', sortable: true},
       { name: '名称', align: 'center', label: '名称', field: 'name', sortable: true},
       { name: '行业', align: 'center', label: '行业', field: 'industry', sortable: true },
+      { name: '连', align: 'center', label: '连', field: 'hcount', sortable: true},
       { name: '涨跌', align: 'center', label: '涨跌', field: 'rate', sortable: true},
+      { name: '最低', align: 'center', label: '最低', field: 'minrate', sortable: true},
       { name: '换手', align: 'center', label: '换手', field: 'HSL', sortable: true},
       { name: '封单', align: 'center', label: '封单', field: 'amount', sortable: true},
       { name: '市值', align: 'center', label: '市值', field: 'marketvalue', sortable: true },
       ]);
     const columnsNew = ref([
       { name: '名称', align: 'center', label: '名称', field: 'name', sortable: true},
-      { name: '连', align: 'center', label: '连', field: 'hcount', sortable: true},
-      { name: '时间', align: 'center', label: '时间', field: 'time', sortable: true },
       { name: '行业', align: 'center', label: '行业', field: 'industry', sortable: true },
+      { name: '价格', align: 'center', label: '价格', field: 'close', sortable: true },
+      { name: '涨跌', align: 'center', label: '涨跌', field: 'rate', sortable: true },
       { name: '换手', align: 'center', label: '换手', field: 'HSL', sortable: true },
-      { name: '封单', align: 'center', label: '封单', field: 'amount', sortable: true },
       { name: '市值', align: 'center', label: '市值', field: 'marketvalue', sortable: true },
+      { name: '上市时间', align: 'center', label: '上市时间', field: 'ipodays', sortable: true },
       ]);
 
-    return { emotion, rows10, rowsHigh, rowsNew, columns10, columnsHigh, columnsDown, columnsNew, tab: ref('high10')};
-      
+    return { emotion, rows10, rowsHigh, rowsNew, rowsDown, columns10, columnsHigh, columnsDown, columnsNew, highstockchart, tab: ref('highstock')};
+
   }
 });
 </script>
@@ -201,6 +289,10 @@ export default defineComponent({
 
 .top-title
   z-index: 100
+
+.chart
+  height: 520px
+
 </style>
 
 

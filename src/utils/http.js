@@ -3,6 +3,13 @@
 import axios from 'axios'
 import qs from 'qs'
 
+axios.defaults.crossDomain = true
+
+console.log(process.env.VUE_APP_Access_Control_Allow_Origin)
+//Access-Control-Allow-Origin 指向前端 ip:port
+//axios.defaults.headers.common['Access-Control-Allow-Origin'] = process.env.VUE_APP_Access_Control_Allow_Origin;
+
+
 axios.interceptors.request.use(config => {
   // loading
   return config

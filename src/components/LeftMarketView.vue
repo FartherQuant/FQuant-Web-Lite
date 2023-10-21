@@ -5,24 +5,6 @@
   <q-item 
     clickable
     v-ripple
-    :active="link === 'prestock'"
-    @click="link = 'prestock'"
-    active-class="my-menu-link"
-    to="/prestock" exact>
-    <q-item-section>
-      <q-item-label>集合竞价</q-item-label>
-      <q-item-label overline>9:15 - 9:30</q-item-label>
-      <q-item-label caption>- 汇总集合竞价期间曾经涨停以及昨日涨停和昨日上榜标的的集合竞价情况。<br />
-      - 按行业统计集合竞价的情况，用于初期判断行业的强弱。
-      </q-item-label>
-    </q-item-section>
-  </q-item>
-  <q-separator spaced />
-
-
-  <q-item 
-    clickable
-    v-ripple
     :active="link === 'market'"
     @click="link = 'market'"
     active-class="my-menu-link"
@@ -50,6 +32,54 @@
     </q-item-section>
   </q-item>
 
+  <q-separator spaced />
+
+  <q-item 
+    clickable
+    v-ripple
+    :active="link === 'trend'"
+    @click="link = 'trend'"
+    active-class="my-menu-link"
+    to="/trend" exact>
+    <q-item-section>
+      <q-item-label>金额</q-item-label>
+      <q-item-label overline>9:30 - 15:00</q-item-label>
+      <q-item-label caption>- 统计日内成交金额情况，每分钟更新</q-item-label>
+    </q-item-section>
+  </q-item>
+
+  <q-separator spaced />
+
+  <q-item 
+    clickable
+    v-ripple
+    :active="link === 'industrylists'"
+    @click="link = 'industrylists'"
+    active-class="my-menu-link"
+    to="/industrylists" exact>
+    <q-item-section>
+      <q-item-label>板块</q-item-label>
+      <q-item-label overline>9:30 - 15:00</q-item-label>
+      <q-item-label caption>- 统计宽指、行业，每分钟更新</q-item-label>
+    </q-item-section>
+  </q-item>
+
+  <q-separator spaced />
+
+  <q-item 
+    clickable
+    v-ripple
+    :active="link === 'bond2stocklists'"
+    @click="link = 'bond2stocklists'"
+    active-class="my-menu-link"
+    to="/bond2stocklists" exact>
+    <q-item-section>
+      <q-item-label>转债</q-item-label>
+      <q-item-label overline>9:30 - 15:00</q-item-label>
+      <q-item-label caption>- 统计转债与正股的成交情况，每分钟更新</q-item-label>
+    </q-item-section>
+  </q-item>
+
 </template>
 
 <script>
@@ -68,7 +98,7 @@ export default {
     const data = ref(null)
 
     function loadData () {
-      api.get('/h5/data/webbaseinfo.json')
+      api.get('https://stock.anno189.com/h5/data/webbaseinfo.json')
         .then((response) => {
           data.value = response.data
         })

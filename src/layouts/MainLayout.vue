@@ -13,16 +13,20 @@
 
         <q-toolbar-title>
           FQuant Web Application
-          <q-badge align="top">v1.5.1.1204 Lite</q-badge>
+          <q-badge align="top">v 1.7.16.1017</q-badge>
         </q-toolbar-title>
-        <div class="text-bold q-mr-lg" flat >投资有风险，入市需谨慎!  </div>
+
         <div class="text-bold" flat > {{ time }}</div>
         <q-btn flat round @click="this.$router.go(0);" icon='refresh'/>
         <q-btn flat round icon='airplay'>
           <q-menu>
             <q-list style="min-width: 100px">
               <q-item clickable v-close-popup>
-                <q-item-section @click="fixed = true">关于</q-item-section>
+                <q-item-section @click="fixed = true">更新日志</q-item-section>
+              </q-item>
+              <q-separator />
+              <q-item clickable v-close-popup>
+                <q-item-section>关于...</q-item-section>
               </q-item>
             </q-list>
           </q-menu>
@@ -49,9 +53,12 @@
               vertical
               class="text-red-9 text-weight-bold"
             >
+              <q-route-tab name="base" to="/marketindustry" label="基本" exact/>
+              <q-route-tab name="pre" to="/prestock" label="竞价" exact/>
               <q-route-tab name="market" to="/market" label="盘中" exact/>
               <q-route-tab name="widthindex" to="/widthindex" label="盘后" exact/>
               <q-route-tab name="fundowner" to="/fundowner" label="组合" exact/>
+              <q-route-tab name="mstatus" to="/marketstatus" label="市场" exact/>
             </q-tabs>
           </div>
           <div class="col">

@@ -1,81 +1,95 @@
 <template>
-    
-
-    <div class="bg-grey-1" v-if="StockOption.str60_base">
-      <div class="row">
-        <div class="text-h6 q-pa-sm">策略组合</div>
-      </div>
-      <div class="row">
-          <v-chart class="chart" :option="v1lineOption" autoresize/>
-      </div>
-      <q-separator inset spaced />
-
-      <div class="row">
-        <div class="text-h6 q-pa-sm">策略 I</div>
-      </div>
-      <div class="row">
-        <div class="q-pa-sm">{{StockOption.strong.plist}}</div>
-      </div>
-      
-      <q-separator inset spaced />
-
-      <div class="row">
-        <div class="text-h6 q-pa-sm">策略 II</div>
-      </div>
-      <div class="row">
-        <div class="q-pa-sm">{{StockOption.breakthrough.plist}}</div>
-      </div>
-
-      <q-separator inset spaced />
-
-      <div class="row">
-        <div class="text-h6 q-pa-sm">策略 III</div>
-      </div>
-      <div class="row">
-        <div class="q-pa-sm">{{StockOption.strdays_all_1.plist}}</div>
-      </div>
-
-      <q-separator inset spaced />
-      
+  <div class="bg-grey-1" v-if="StockOption.str60_base">
+    <div class="row">
+      <div class="text-h6 q-pa-sm">60日突破({{StockOption.str60_base.pcount}})</div>
     </div>
+    <div class="row">
+      <div class="q-pa-sm">{{StockOption.str60_base.plist}}</div>
+    </div>
+    <q-separator inset spaced />
+
+    <div class="row">
+      <div class="text-h6 q-pa-sm">标准心理({{StockOption.strdays_all.pcount}})</div>
+    </div>
+    <div class="row">
+      <div class="q-pa-sm">{{StockOption.strdays_all.plist}}</div>
+    </div>
+    <q-separator inset spaced />
+
+    <div class="row">
+      <div class="text-h6 q-pa-sm">突破可能({{StockOption.breakthrough.pcount}})</div>
+    </div>
+    <div class="row">
+      <div class="q-pa-sm">{{StockOption.breakthrough.plist}}</div>
+    </div>
+    <q-separator inset spaced />
+
+    <div class="row">
+      <div class="text-h6 q-pa-sm">趋势可能({{StockOption.strong.pcount}})</div>
+    </div>
+    <div class="row">
+      <div class="q-pa-sm">{{StockOption.strong.plist}}</div>
+    </div>
+    <q-separator inset spaced />
+
+    <div class="row">
+      <div class="text-h6 q-pa-sm">情绪可能({{StockOption.str_emotion.pcount}})</div>
+    </div>
+    <div class="row">
+      <div class="q-pa-sm">{{StockOption.str_emotion.plist}}</div>
+    </div>
+    <q-separator inset spaced />
+
+    <div class="row">
+      <div class="text-h6 q-pa-sm">Pinbar({{StockOption.pinbar_base.pcount}})</div>
+    </div>
+    <div class="row">
+      <div class="q-pa-sm">{{StockOption.pinbar_base.plist}}</div>
+    </div>
+    <q-separator inset spaced />
+
+    <div class="row">
+      <div class="text-h6 q-pa-sm">金额策略({{StockOption.str_amount.pcount}})</div>
+    </div>
+    <div class="row">
+      <div class="q-pa-sm">{{StockOption.str_amount.plist}}</div>
+    </div>
+    <q-separator inset spaced />
+
+    <div class="row">
+      <div class="text-h6 q-pa-sm">CORR_ALL({{StockOption.corr_all.pcount}})</div>
+    </div>
+    <div class="row">
+      <div class="q-pa-sm">{{StockOption.corr_all.plist}}</div>
+    </div>
+    <q-separator inset spaced />
+
+    <div class="row">
+      <div class="text-h6 q-pa-sm">BIAS36({{StockOption.bias36.pcount}})</div>
+    </div>
+    <div class="row">
+      <div class="q-pa-sm">{{StockOption.bias36.plist}}</div>
+    </div>
+    <q-separator inset spaced />
+
+    <div class="row">
+      <div class="text-h6 q-pa-sm">strategy_2and({{StockOption.strategy_2and.pcount}})</div>
+    </div>
+    <div class="row">
+      <div class="q-pa-sm">{{StockOption.strategy_2and.plist}}</div>
+    </div>
+    <q-separator inset spaced />
+    
+  </div>
   
 </template>
 
 <script lang=“ts”>
 import http from '../utils/http'
-
-import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
-import { LineChart, SunburstChart, } from 'echarts/charts'
-import {
-  GridComponent,
-  TooltipComponent,
-  MarkAreaComponent,
-  LegendComponent,
-  TitleComponent,
-  VisualMapComponent,
-  DatasetComponent
-} from 'echarts/components'
-import VChart from 'vue-echarts'
 import { ref, defineComponent } from 'vue'
-
-use([
-  CanvasRenderer,
-  SunburstChart,
-  LineChart,
-  GridComponent,
-  MarkAreaComponent,
-  TooltipComponent,
-  LegendComponent,
-  TitleComponent,
-  VisualMapComponent,
-  DatasetComponent
-])
 
 export default defineComponent({
   name: 'StockView',
-  components: { VChart },
-
   
   mounted: function () {
     this.getServerMarketData()
@@ -84,15 +98,9 @@ export default defineComponent({
 
   methods: {
     getServerMarketData: async function () {
-      let params = {
-      }
-      const res1 = await http.get('https://stock.anno189.com/h5/data/showpools.json', params)
-      this.StockOption = res1.data
-      console.log(res1.data)
-      
-
-      const res2 = await http.get('https://stock.anno189.com/h5/data/fundowner_show.json', params)
-      this.v1lineOption = res2.data
+      const res = await http.get('https://stock.anno189.com/h5/data/pools.json', {})
+      this.StockOption = res.data
+      console.log(res.data)
 
     }
   },
@@ -100,9 +108,8 @@ export default defineComponent({
 
   setup () {
     const StockOption = ref({});
-    const v1lineOption = ref({});
     
-    return { StockOption, v1lineOption};
+    return { StockOption,};
 
   },
   
@@ -110,8 +117,3 @@ export default defineComponent({
 });
 
 </script>
-
-<style lang="sass">
-.chart 
-  height: 300px
-</style>

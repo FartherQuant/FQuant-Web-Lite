@@ -33,6 +33,20 @@
   <q-item 
     clickable
     v-ripple
+    :active="link === 'marketstyle'"
+    @click="link = 'marketstyle'"
+    active-class="my-menu-link"
+    to="/marketstyle" exact>
+    <q-item-section>
+      <q-item-label>风格</q-item-label>
+      <q-item-label overline>每日18:00更新</q-item-label>
+    </q-item-section>
+  </q-item>
+  <q-separator spaced />
+
+  <q-item 
+    clickable
+    v-ripple
     :active="link === 'industry'"
     @click="link = 'industry'"
     active-class="my-menu-link"
@@ -61,6 +75,35 @@
   <q-item 
     clickable
     v-ripple
+    :active="link === 'strategydata'"
+    @click="link = 'strategydata'"
+    active-class="my-menu-link"
+    to="/strategydata" exact>
+    <q-item-section>
+      <q-item-label>策略</q-item-label>
+      <q-item-label overline>每日19:00更新</q-item-label>
+    </q-item-section>
+  </q-item>
+  <q-separator spaced />
+
+
+  <q-item 
+    clickable
+    v-ripple
+    :active="link === 'monery'"
+    @click="link = 'monery'"
+    active-class="my-menu-link"
+    to="/monery" exact>
+    <q-item-section>
+      <q-item-label>资金</q-item-label>
+      <q-item-label overline>每日19:00更新</q-item-label>
+    </q-item-section>
+  </q-item>
+  <q-separator spaced />
+
+  <q-item 
+    clickable
+    v-ripple
     :active="link === 'outer'"
     @click="link = 'outer'"
     active-class="my-menu-link"
@@ -68,6 +111,20 @@
     <q-item-section>
       <q-item-label>外盘</q-item-label>
       <q-item-label overline>隔日8:00更新</q-item-label>
+    </q-item-section>
+  </q-item>
+  <q-separator spaced />
+
+  <q-item 
+    clickable
+    v-ripple
+    :active="link === 'exit'"
+    @click="link = 'exit'"
+    active-class="my-menu-link"
+    to="/exit" exact>
+    <q-item-section>
+      <q-item-label>退市/停牌</q-item-label>
+      <q-item-label overline>每日19:00更新</q-item-label>
     </q-item-section>
   </q-item>
   <q-separator spaced />
@@ -89,7 +146,7 @@ export default {
     const data = ref(null)
 
     function loadData () {
-      api.get('/h5/data/webbaseinfo.json')
+      api.get('https://stock.anno189.com/h5/data/webbaseinfo.json')
         .then((response) => {
           data.value = response.data
         })
