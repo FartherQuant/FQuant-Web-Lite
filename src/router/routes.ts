@@ -258,16 +258,6 @@ const routes = [
     ]
   },
   {
-    path: '/fundowner-all',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', components: {
-          Main: () => import('pages/FundOwnerAllView.vue'),
-          LeftSidebar: () => import('components/LeftFundOwnerView.vue'), 
-        }, }
-    ]
-  },
-  {
     path: '/marketstatus',
     component: () => import('layouts/MainLayout.vue'),
     children: [

@@ -46,7 +46,7 @@ function getMatchedComponents (to, router) {
   }))
 }
 
-export function addPreFetchHooks ({ router, publicPath }) {
+export function addPreFetchHooks ({ router, store, publicPath }) {
   // Add router hook for handling preFetch.
   // Doing it after initial route is resolved so that we don't double-fetch
   // the data that we already have. Using router.beforeResolve() so that all
@@ -98,7 +98,7 @@ export function addPreFetchHooks ({ router, publicPath }) {
 
     preFetchList.reduce(
       (promise, preFetch) => promise.then(() => hasRedirected === false && preFetch({
-        
+        store,
         currentRoute: to,
         previousRoute: from,
         redirect,

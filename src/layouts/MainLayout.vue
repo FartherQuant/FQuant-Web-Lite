@@ -53,7 +53,6 @@
               vertical
               class="text-red-9 text-weight-bold"
             >
-              <q-route-tab name="base" to="/marketindustry" label="基本" exact/>
               <q-route-tab name="pre" to="/prestock" label="竞价" exact/>
               <q-route-tab name="market" to="/market" label="盘中" exact/>
               <q-route-tab name="widthindex" to="/widthindex" label="盘后" exact/>

@@ -52,36 +52,6 @@
     </q-item-section>
   </q-item>
   <q-separator spaced />
-
-  <q-item 
-    clickable
-    v-ripple
-    :active="link === 'fundowner-all'"
-    @click="link = 'fundowner-all'"
-    active-class="my-menu-link"
-    to="/fundowner-all" exact>
-    <q-item-section>
-      <q-item-label>策略观察</q-item-label>
-      <q-item-label overline>每日19:00更新</q-item-label>
-      <q-item-label caption>多仓位、长周期策略观察</q-item-label>
-    </q-item-section>
-  </q-item>
-  <q-separator spaced />
-
-  <q-item 
-    clickable
-    v-ripple
-    :active="link === 'stock'"
-    @click="link = 'stock'"
-    active-class="my-menu-link"
-    to="/stock" exact>
-    <q-item-section>
-      <q-item-label>策略</q-item-label>
-      <q-item-label overline>每日19:00更新</q-item-label>
-      <q-item-label caption>每日策略池</q-item-label>
-    </q-item-section>
-  </q-item>
-
 </template>
 
 <script>
