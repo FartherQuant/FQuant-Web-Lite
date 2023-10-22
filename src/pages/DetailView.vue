@@ -4,18 +4,6 @@
   </div>
   <q-separator inset spaced />
   <div class="q-pa-sm">
-    <v-chart class="chart" :option="marketamountpercentbmsOption" autoresize ref="marketamountpercentbmsChart"/>
-  </div>
-  <q-separator inset spaced />
-  <div class="q-pa-sm">
-    <v-chart class="chart" :option="martetlinestatusOption" autoresize ref="martetlinestatusChart"/>
-  </div>
-  <q-separator inset spaced />
-  <div class="q-pa-sm">
-    <v-chart class="chart" :option="marketstrcountOption" autoresize ref="marketstrcountChart"/>
-  </div>
-  <q-separator inset spaced />
-  <div class="q-pa-sm">
     <v-chart class="chart" :option="marketrzrq00Option" autoresize ref="marketrzrqChart"/>
   </div>
   <q-separator inset spaced />

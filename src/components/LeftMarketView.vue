@@ -34,21 +34,6 @@
 
   <q-separator spaced />
 
-  <q-item 
-    clickable
-    v-ripple
-    :active="link === 'trend'"
-    @click="link = 'trend'"
-    active-class="my-menu-link"
-    to="/trend" exact>
-    <q-item-section>
-      <q-item-label>金额</q-item-label>
-      <q-item-label overline>9:30 - 15:00</q-item-label>
-      <q-item-label caption>- 统计日内成交金额情况，每分钟更新</q-item-label>
-    </q-item-section>
-  </q-item>
-
-  <q-separator spaced />
 
   <q-item 
     clickable
@@ -64,21 +49,6 @@
     </q-item-section>
   </q-item>
 
-  <q-separator spaced />
-
-  <q-item 
-    clickable
-    v-ripple
-    :active="link === 'bond2stocklists'"
-    @click="link = 'bond2stocklists'"
-    active-class="my-menu-link"
-    to="/bond2stocklists" exact>
-    <q-item-section>
-      <q-item-label>转债</q-item-label>
-      <q-item-label overline>9:30 - 15:00</q-item-label>
-      <q-item-label caption>- 统计转债与正股的成交情况，每分钟更新</q-item-label>
-    </q-item-section>
-  </q-item>
 
 </template>
 

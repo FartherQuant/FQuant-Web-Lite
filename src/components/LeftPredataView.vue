@@ -37,21 +37,6 @@
   <q-item 
     clickable
     v-ripple
-    :active="link === 'predataind'"
-    @click="link = 'predataind'"
-    active-class="my-menu-link"
-    to="/predataind" exact>
-    <q-item-section>
-      <q-item-label>竞价行业</q-item-label>
-      <q-item-label overline>9:26</q-item-label>
-      <q-item-label caption>- 开盘竞价结束后统计结果</q-item-label>
-    </q-item-section>
-  </q-item>
-  <q-separator spaced />
-
-  <q-item 
-    clickable
-    v-ripple
     :active="link === 'enddata'"
     @click="link = 'enddata'"
     active-class="my-menu-link"

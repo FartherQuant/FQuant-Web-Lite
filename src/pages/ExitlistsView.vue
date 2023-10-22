@@ -172,7 +172,6 @@ export default defineComponent({
     const rowsexitprice = ref({});
     const rowsclearup = ref({});
     const willdata = ref({});
-    const rowsday10 = ref({});
     
     const columnsexitprice = ref([
       { name: '代码', align: 'center', label: '代码', field: 'code', sortable: true },

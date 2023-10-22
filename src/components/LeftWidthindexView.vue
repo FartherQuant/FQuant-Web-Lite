@@ -33,20 +33,6 @@
   <q-item 
     clickable
     v-ripple
-    :active="link === 'marketstyle'"
-    @click="link = 'marketstyle'"
-    active-class="my-menu-link"
-    to="/marketstyle" exact>
-    <q-item-section>
-      <q-item-label>风格</q-item-label>
-      <q-item-label overline>每日18:00更新</q-item-label>
-    </q-item-section>
-  </q-item>
-  <q-separator spaced />
-
-  <q-item 
-    clickable
-    v-ripple
     :active="link === 'industry'"
     @click="link = 'industry'"
     active-class="my-menu-link"
@@ -72,34 +58,6 @@
   </q-item>
   <q-separator spaced />
 
-  <q-item 
-    clickable
-    v-ripple
-    :active="link === 'strategydata'"
-    @click="link = 'strategydata'"
-    active-class="my-menu-link"
-    to="/strategydata" exact>
-    <q-item-section>
-      <q-item-label>策略</q-item-label>
-      <q-item-label overline>每日19:00更新</q-item-label>
-    </q-item-section>
-  </q-item>
-  <q-separator spaced />
-
-
-  <q-item 
-    clickable
-    v-ripple
-    :active="link === 'monery'"
-    @click="link = 'monery'"
-    active-class="my-menu-link"
-    to="/monery" exact>
-    <q-item-section>
-      <q-item-label>资金</q-item-label>
-      <q-item-label overline>每日19:00更新</q-item-label>
-    </q-item-section>
-  </q-item>
-  <q-separator spaced />
 
   <q-item 
     clickable
